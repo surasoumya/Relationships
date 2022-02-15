@@ -31,8 +31,8 @@ public class HibernateUtil {
                 settings.put(Environment.HBM2DDL_AUTO, "create");
                 configuration.setProperties(settings);
 
-                configuration.addAnnotatedClass(UserDetails.class);
-                configuration.addAnnotatedClass(Vehicle.class);
+                configuration.addAnnotatedClass(Students.class);
+                configuration.addAnnotatedClass(Branch.class);
                 
 
                 
