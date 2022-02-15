@@ -28,14 +28,11 @@ public class HibernateUtil {
 
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
-                settings.put(Environment.HBM2DDL_AUTO, "create");
+                settings.put(Environment.HBM2DDL_AUTO, "update");
                 configuration.setProperties(settings);
 
-                configuration.addAnnotatedClass(Students.class);
-                configuration.addAnnotatedClass(Branch.class);
-                
+                configuration.addAnnotatedClass(Student.class);
 
-                
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
 

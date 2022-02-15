@@ -1,67 +1,64 @@
 package com.mondee;
-
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Iterator;
+import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-
-
+import org.hibernate.query.Query;
 public class Mainlogic {
 
 	public static void main(String[] args) {
 
-		Session se = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction t = session.beginTransaction();
 		
-		Transaction tx = se.beginTransaction();
+		 Student sai =new Student();
+		sai.setSid(5);
+		sai.setSname("naresh");
+		sai.setSmarks(499);
 		
-		Students student=new Students();
-		student.setStudentId(1);
-		student.setStudentName("soumya");
+		session.save(sai); 
 		
-		Students student1=new Students();
-		student1.setStudentId(2);
-		student1.setStudentName("salomi");
+		// ALL RECORDS DISPLAY
 		
-		Students student2=new Students();
-		student2.setStudentId(3);
-		student2.setStudentName("kalpana");
+	/*	Query qr = session.createQuery("from Student s");
 		
-		Set students=new HashSet();
-		students.add(student);
-		students.add(student1);
-		students.add(student2);
-		
-		Branch branch = new Branch();
-		branch.setBranchId(5);
-		branch.setBranchName("CSE");
+		List studentsList = qr.list();
+		Iterator itr = studentsList.iterator();
 
-		Branch branch1 = new Branch();
-		branch1.setBranchId(4);
-		branch1.setBranchName("ECE");
+		while(itr.hasNext()) {
+			Student x = (Student) itr.next();
+			System.out.println(x.getSid()+" "+x.getSname()+" "+x.getSmarks());
+		} */
 		
-		Set branches = new HashSet();
-		branches.add(branch);
-		branches.add(branch1);
+		//PATICULAR RECORDS DISPLAY
+		
+		/* Query qr = session.createQuery(" from Student s where s.sid=:x");
+		qr.setParameter("x",5);
+		List studentsList = qr.list();
+		Iterator itr = studentsList.iterator();
 
-		student1.setBranches(branches);
-		student.setBranches(branches);
-		branch.setStudents(students);
-		branch1.setStudents(students);
-		se.save(branch);
-		se.save(branch1);
-		se.save(student);
-		
-		tx.commit();
-		se.close();
-		
-		
+		while(itr.hasNext()) {
+			Student x = (Student) itr.next();
+			System.out.println(x.getSid()+" "+x.getSname()+" "+x.getSmarks());
+		} */
 
+		//Query qr = session.createQuery("delete from Student s where s.sid =:p");
+		//qr.setParameter("p",3);
+		
+		// UPDATE RECORDS DISPLAY
+		/* Query qr = session.createQuery(" update Student set sname=: sname where sid=:sid");
+		qr.setParameter("sname","prasanna");
+		qr.setParameter("sid", 1);
+		int re = qr.executeUpdate();
+		System.out.println(re); 
+		
+		*/
+		t.commit();
+		session.close();
 	}
 }
